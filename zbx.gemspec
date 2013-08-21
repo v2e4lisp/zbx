@@ -5,11 +5,11 @@ require 'zbx/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "zbx"
-  spec.version       = Zbx::VERSION
+  spec.version       = ZBX::VERSION
   spec.authors       = ["wenjun.yan"]
   spec.email         = ["mylastnameisyan@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{yet another zabbix api}
+  spec.summary       = %q{zabbix api in ruby way}
   spec.homepage      = ""
   spec.license       = "MIT"
 

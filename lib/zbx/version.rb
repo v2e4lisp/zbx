@@ -1,3 +1,3 @@
-module Zbx
+module ZBX
   VERSION = "0.0.1"
 end
