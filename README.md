@@ -1,6 +1,9 @@
 # Zbx
 
-TODO: Write a gem description
+This project is inspired by the following repos:
+
+- [zabbixapi](https://github.com/vadv/zabbixapi)
+- [pyzabbix](https://github.com/lukecyca/pyzabbix).
 
 ## Installation
 
