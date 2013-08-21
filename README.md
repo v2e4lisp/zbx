@@ -21,7 +21,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'zbx'
+
+# the following code are doing the same thing ,that is get a host whose id is 10160
+
+ZBX::API.new username, password, api_url do
+  host.get hostids: 10160
+end
+
+ZBX::API.new username, password, api_url do
+  host do
+    get hostids: 10160
+  end
+end
+
+ZBX::API.new(username, password, api_url).host.get hostids: 10160
+```
 
 ## Contributing
 
