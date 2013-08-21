@@ -18,6 +18,7 @@ module ZBX
       @pass = pass
       @uri = URI.parse(url)
 
+      # Our http client. Borrowed from zabbixapi(https://github.com/vadv/zabbixapi)
       @http ||= Net::HTTP.new @uri.host, @uri.port
       if @uri.port == 443
         @http.use_ssl = true
