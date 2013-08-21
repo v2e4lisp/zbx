@@ -1,4 +1,4 @@
-# Zbx
+# ZBX
 
 This project is inspired by the following repos:
 
