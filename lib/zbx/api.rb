@@ -29,7 +29,7 @@ module ZBX
     end
 
     def api_url! api_url
-      @api_url, @auth = api_url, nil
+      @api_url, @auth, @uri, @http = api_url, nil, nil, nil
     end
 
     def request method, params={}
