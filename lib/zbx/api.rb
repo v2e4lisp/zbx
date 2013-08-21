@@ -23,17 +23,14 @@ module ZBX
     def username! username
       @user, @auth = username, nil
     end
-    alias_method :username=, :username!
 
     def password! password
       @pass, @auth = password, nil
     end
-    alias_method :password=, :password!
 
     def api_url! api_url
       @api_url, @auth = api_url, nil
     end
-    alias_method :api_url=, :api_url!
 
     def request method, params={}
       # in any api request except `user.login`
