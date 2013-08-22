@@ -16,20 +16,14 @@ module ZBX
       @auth = nil
       @user = user
       @pass = pass
-      @api_url = url
+      @http = HttpClient.new url
       instance_eval(&b) if block_given?
     end
 
-    def username! username
-      @user, @auth = username, nil
-    end
-
-    def password! password
-      @pass, @auth = password, nil
-    end
-
-    def api_url! api_url
-      @api_url, @auth, @uri, @http = api_url, nil, nil, nil
+    def set option={}
+      @user, @auth = option[:username], nil if option[:username]
+      @pass, @auth = option[:password], nil if option[:password]
+      @http.api_url = option[:api_url] if option[:api_url]
     end
 
     def request method, params={}
@@ -42,18 +36,18 @@ module ZBX
       # - auth            = an authentication token
 
       params[:output] ||= "extend"
-      _request(method: method,
-               params: params,
-               auth: auth!,
-               id: _id,
-               jsonrpc: '2.0')
+      @http.request(method: method,
+                    params: params,
+                    auth: auth!,
+                    id: _id,
+                    jsonrpc: '2.0')
     end
 
     def auth!
-      @auth ||= _request(method: "user.login",
-                         params: {user: @user, password: @pass},
-                         id: _id,
-                         jsonrpc: '2.0')
+      @auth ||= @http.request(method: "user.login",
+                              params: {user: @user, password: @pass},
+                              id: _id,
+                              jsonrpc: '2.0')
 
       # if login failed, we raise an auth error !
       @auth or raise "Authentication failed"
@@ -64,30 +58,6 @@ module ZBX
     end
 
     private
-
-    def _http
-      # Our http client. Borrowed from zabbixapi(https://github.com/vadv/zabbixapi)
-      @http ||= Net::HTTP.new _uri.host, _uri.port
-      if _uri.port == 443
-        @http.use_ssl = true
-        @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      end
-      @http
-    end
-
-    def _uri
-      @uri ||= URI.parse(@api_url)
-    end
-
-    def _request options={}
-      # send post request
-      req = Net::HTTP::Post.new _uri.request_uri
-      req.add_field('Content-Type', 'application/json-rpc')
-      req.body = options.to_json
-      JSON.parse(_http.request(req).body)['result']
-    rescue
-      nil
-    end
 
     def _id
       rand(100000)

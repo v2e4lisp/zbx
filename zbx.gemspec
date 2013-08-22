@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = ZBX::VERSION
   spec.authors       = ["wenjun.yan"]
   spec.email         = ["mylastnameisyan@gmail.com"]
-  spec.description   = %q{yet another zabbix api}
+  spec.description   = %q{yet another zabbix api wrapper and a dsl}
   spec.summary       = %q{zabbix api in ruby way}
   spec.homepage      = ""
   spec.license       = "MIT"
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 end
