@@ -39,9 +39,8 @@ end
 ZBX::API.new(username, password, api_url).host.get hostids: 10160
 
 ZBX::API.new do
-  api_url! api_url
-  username! user
-  password! password
+  set username: 'username', password: password
+  set api_url: 'http://api_url'
   host.get hostids: 10160
 end
 ```

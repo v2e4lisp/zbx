@@ -4,7 +4,7 @@ module ZBX
 
   class HttpClient
     def initialize api_url=nil
-      @api_url = api_url=nil
+      @api_url = api_url
     end
 
     def request options={}

@@ -8,4 +8,3 @@ require 'net/http'
 
 module ZBX
 end
-
