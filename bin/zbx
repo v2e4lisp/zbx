@@ -1,35 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'zbx'
-require 'yaml'
-require 'thor'
-
-def browse link
-  os = RbConfig::CONFIG['host_os']
-
-  if os =~ /mswin|mingw|cygwin/
-    system "start #{link}"
-  elsif os =~ /darwin/
-    system "open #{link}"
-  elsif os =~ /linux|bsd/
-    system "xdg-open #{link}"
-  end
-end
-
-class Zbx < Thor
-  desc "send request", "run it"
-
-  def send
-  end
-
-  desc "doc [method-name/entity-name]", "open the api doc in browser"
-  argument :method, required: true
-  def doc method
-    base = 'https://www.zabbix.com/documentation/2.0/manual/appendix/api/'
-    browse base << method.gsub('.', '/')
-    say 'done'
-  end
-
-end
-
-Zbx.start
+ZBX::CLI::CLI.start

@@ -12,9 +12,18 @@ module ZBX
       req = Net::HTTP::Post.new uri.request_uri
       req.add_field('Content-Type', 'application/json-rpc')
       req.body = options.to_json
-      JSON.parse(http.request(req).body)['result']
-    rescue
-      nil
+      res = http.request(req)
+
+      begin
+        parsed = JSON.parse(res.body)
+      rescue
+        raise "Zabbix API Request Error: \n HTTP Response : #{res.inspect} \n #{res.body}"
+      end
+
+      if parsed["error"] or parsed["result"].nil?
+        raise "Zabbix API Request Message(Bad request) : #{parsed}"
+      end
+      parsed['result']
     end
 
     def http
@@ -33,7 +42,6 @@ module ZBX
 
     def api_url= url
       @api_url, @uri, @http = url, nil, nil
-      self
     end
   end
 end

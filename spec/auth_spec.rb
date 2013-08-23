@@ -9,7 +9,7 @@ describe ZBX::API do
 
   describe "invalid client authentication" do
     it "should raise a runtime error!" do
-      expect { @invalid_client.auth! }.to raise_error(RuntimeError, /Authentication/)
+      expect { @invalid_client.auth! }.to raise_error(RuntimeError, /Login name or password/)
     end
   end
 

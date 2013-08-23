@@ -35,21 +35,16 @@ module ZBX
       # - auth            = an authentication token
 
       params[:output] ||= "extend"
-      @http.request(method: method,
-                    params: params,
-                    auth: auth!,
-                    id: _id,
-                    jsonrpc: '2.0')
+      opts = {method: method,
+              params: params,
+              id: _id,
+              jsonrpc: '2.0'}
+      opts[:auth] = auth! unless method == 'user.login'
+      @http.request opts
     end
 
     def auth!
-      @auth ||= @http.request(method: "user.login",
-                              params: {user: @user, password: @pass},
-                              id: _id,
-                              jsonrpc: '2.0')
-
-      # if login failed, we raise an auth error !
-      @auth or raise "Authentication failed"
+      @auth ||= user.login user: @user, password: @pass
     end
 
     def method_missing m, &b
