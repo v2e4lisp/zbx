@@ -14,7 +14,7 @@ module ZBX
 
     def initialize user=nil, pass=nil, url=nil, &b
       @auth = nil
-      @user, @pass, @http = user, pass, HttpClient.new url
+      @user, @pass, @http = user, pass, HttpClient.new(url)
 
       instance_eval(&b) if block_given?
     end
