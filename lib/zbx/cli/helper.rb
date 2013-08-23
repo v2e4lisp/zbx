@@ -1,6 +1,7 @@
 module ZBX
   module CLI
     module Helper
+      extend self
 
       def browse link
         case RbConfig::CONFIG['host_os']

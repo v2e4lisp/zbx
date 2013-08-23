@@ -4,24 +4,24 @@ module ZBX
     # if block is given, it will be evaluated in the object
     # that is to say, you can write something like this.
     #
-    # ZBX::API.new(user, pass, api_url) do
+    # ZBX::API.new(user, password, api_url) do
     #   host.get(hostids: 1)
     # end
     #
     # -- this is equal to the following --
     #
-    # ZBX::API.new(user, pass, api_url).host.get(hostids: 1)
+    # ZBX::API.new(user, password, api_url).host.get(hostids: 1)
 
-    def initialize user=nil, pass=nil, url=nil, &b
+    def initialize user=nil, password=nil, api_url=nil, &b
       @auth = nil
-      @user, @pass, @http = user, pass, HttpClient.new(url)
+      @user, @password, @http = user, password, HttpClient.new(api_url)
 
       instance_eval(&b) if block_given?
     end
 
     def set option={}
-      @user, @auth = option[:username], nil if option[:username]
-      @pass, @auth = option[:password], nil if option[:password]
+      @user, @auth = option[:user], nil if option[:user]
+      @password, @auth = option[:password], nil if option[:password]
       @http.api_url = option[:api_url] if option[:api_url]
     end
 
@@ -34,7 +34,7 @@ module ZBX
       # - jsonrpc         = '2.0'
       # - auth            = an authentication token
 
-      params[:output] ||= "extend"
+      params[:output] = "extend" unless params[:output] or params["output"]
       opts = {method: method,
               params: params,
               id: _id,
@@ -44,7 +44,7 @@ module ZBX
     end
 
     def auth!
-      @auth ||= user.login user: @user, password: @pass
+      @auth ||= user.login user: @user, password: @password
     end
 
     def method_missing m, &b

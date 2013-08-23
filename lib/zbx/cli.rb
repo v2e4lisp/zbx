@@ -1,4 +1,4 @@
 require 'yaml'
 require 'thor'
-require 'cli/helper'
-require 'cli/cli'
+require 'zbx/cli/helper'
+require 'zbx/cli/cli'

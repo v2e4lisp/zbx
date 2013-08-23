@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe ZBX::API do
-  api_url = 'http://localhost/api_jsonrpc.php'
+  info = YAML.load_file(File.expand_path('~/.zbxconfig'))
+  user, password, api_url = info["user"], info["password"], info["api_url"]
 
   before(:each) do
-    @client = ZBX::API.new "wenjun.yan", "123456", api_url
+    @client = ZBX::API.new user, password, api_url
   end
 
   describe "Using host.get to check if api request works " do

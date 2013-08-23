@@ -1,29 +1,51 @@
 module ZBX
   module CLI
-    class CLI < Thor
-      include Helpers
 
-      desc "send [method] [data]", "send api request to zabbix server"
-      method_option :user, type: :string, aliases: '-u'
-      method_option :password, type: :string, aliases: '-p'
-      method_option :api_url, type: :string, aliases: '-l'
+    class CLI < Thor
+      map "-s" => :send
+      map "-d" => :doc
+
+      # ---------------------------- send ------------------------------
+      desc "send [method] [data]", "Send api request to zabbix server, -d is its short term"
+      long_desc <<-LLL
+      Example:
+      \x5> $ zbx send host.get '{"hostids": 321}'
+
+      > $ zbx -s host.get '{"hostids": 321}'
+
+      # specify user name and password
+      \x5> $ zbx -s host.get '{"hostids": 321}' -u me -p mypassword
+      LLL
+
+      method_option :user, type: :string, aliases: '-u', desc: "zabbix username, default defined in ~/.zbxconfig"
+      method_option :password, type: :string, aliases: '-p', desc: "zabbix password, default defined in ~/.zbxconfig"
+      method_option :api_url, type: :string, aliases: '-l',  desc: "zabbix api url, default defined in ~/.zbxconfig"
 
       def send(method, data='{}')
         config_file = File.expand_path('~/.zbxconfig')
-        default = File.exists?(config_file) ? YAML.load_file(config_file).to_hash : {}
+        default = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
-        client = ZBX::API.new do
-          set username: default["user"]
-          set password: default["password"]
-          set api_url: default["api_url"]
-        end
-
+        say (options[:user] || default["user"])
+        say (options[:password] || default["password"])
+        client = ZBX::API.new(options[:user] || default["user"],
+                              options[:password] || default["password"],
+                              options[:api_url] || default["api_url"])
         x = method.split('.')
         say client.send(x.first).send(x.last, JSON.parse(data))
       end
 
-      desc "doc [method-name or entity-name]", "open the api doc in browser"
-      method_option :version, default: 2.0, aliases: "-v", type: :numeric
+
+      # ---------------------------- doc ------------------------------
+      desc "doc [method-name or entity-name]", "Open the api doc in browser, -d its short term"
+      long_desc <<-LLL
+      Example:
+      \x5> $ zbx doc host.get
+
+      > $ zbx -d host
+
+      > $ zbx doc hostgroup -v 1.8
+      LLL
+      method_option :version, default: 2.0, aliases: "-v", type: :numeric, desc: "api version, config it in ~/.zbxconfig"
 
       def doc method=''
         version = options[:version]
@@ -38,8 +60,9 @@ module ZBX
                  end
         url = base << suffix << method.gsub('.', '/')
         say "browse #{url}"
-        browse url
+        Helper.browse url
       end
     end
+
   end
 end
