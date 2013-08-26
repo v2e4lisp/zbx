@@ -45,6 +45,3 @@ module ZBX
     end
   end
 end
-
-
-
