@@ -39,12 +39,12 @@ end
 
 
 ZBX.client do
-  set username: 'username', password: password
+  set user: user, password: password
   set api_url: 'http://api_url'
   host.get hostids: 10160
 end
 
-client = ZBX.client(username, password, api_url)
+client = ZBX.client(user, password, api_url)
 client.host.get hostids: 10160
 
 host_api = client.host
