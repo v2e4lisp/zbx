@@ -23,7 +23,7 @@ module ZBX
 
       # ---------------------------- send ------------------------------
 
-      desc "send [method] [data]", "Send api request to zabbix server, -d is its short term"
+      desc "send [method] [data]", "Send api request to zabbix server, -s is its short term"
       long_desc <<-LLL
       Example:
       \x5> $ zbx send host.get '{"hostids": 321}'
@@ -41,14 +41,11 @@ module ZBX
       def send(method, data='{}')
         config_file = File.expand_path('~/.zbxconfig')
         default = File.exists?(config_file) ? YAML.load_file(config_file) : {}
-
-        say (options[:user] || default["user"])
-        say (options[:password] || default["password"])
         client = ZBX::API.new(options[:user] || default["user"],
                               options[:password] || default["password"],
                               options[:api_url] || default["api_url"])
         # x = method.split('.')
-        client.request method, JSON.parse(data)
+        say client.request method, JSON.parse(data)
         # say client.send(x.first).send(x.last, JSON.parse(data))
       end
 
