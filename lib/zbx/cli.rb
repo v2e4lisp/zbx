@@ -64,7 +64,7 @@ module ZBX
 
       > $ zbx doc hostgroup -v 1.8
       LLL
-      method_option :version, default: 2.0, aliases: "-v", type: :numeric, desc: "api version, config it in ~/.zbxconfig"
+      method_option :version, default: 2.0, aliases: "-v", type: :numeric, desc: "api version"
 
       def doc method=''
         version = options[:version]
