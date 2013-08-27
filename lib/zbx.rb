@@ -11,7 +11,9 @@ module ZBX
     # ZBX module API, user should call the following two methods
     # to initialize a zabbxi-api client.
     def client user=nil, password=nil, api_url=nil, &block
-      @client ||= client! user, password, api_url, &block
+      @client ||= client! user, password, api_url
+      @client.instance_eval &block if block_given?
+      @client
     end
 
     def client! user=nil, password=nil, api_url=nil, &block
