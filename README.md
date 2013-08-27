@@ -62,7 +62,7 @@ end
 
 ZBX.client do |client|
   client.hostgroup do |group|
-    p group.get(groupids: 10)
+    group.get(groupids: 10)
   end
 end
 
