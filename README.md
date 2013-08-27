@@ -22,14 +22,14 @@ Or install it yourself as:
 ### Command Line Config
 ```yaml
 # ~/.zbxconfig is the config file. It will be parsed by yaml
-# so you write something like this
+# So you write something like this
 user: wenjun.yan
 password: yanwenjun
 api_url: https://zabbix-api-url
 ```
 
 ### Rails Config
-Configurateion. Yes, you can overwirte these by passing new value to ZBX.client.
+You can overwirte these by passing new value to ZBX.client.
 
 Put the following lines into `./config/initializers/zbx.rb`
 ```ruby
@@ -45,7 +45,7 @@ end
 ```ruby
 require 'zbx'
 
-# the following code are doing the same thing ,that is get a host whose id is 10160
+# The following code are doing the same thing ,that is get a host whose id is 10160
 
 # You can pass an arg(`self`) to the block if you like.
 # If no arg is passed, the block will be eval in `self`
@@ -81,8 +81,9 @@ client.host.get hostids: 10160
 host_api = client.host
 host_api.get hostids: 10160
 
-# When you want to create multiple user , use ZBX.client!.
-# Everytime you call it it will initialize a new zabbix-api client.
+# When you want to create multiple user , use `ZBX.client!`,
+# since `ZBX.client` will always try to return the existed zabbix-client created by itself.
+# Instead `ZBX.client!` will always create a new instance everytime you call it.
 me = ZBX.client! user: 'wenjun.yan', password: 'yanwenjun'
 admin = ZBX.client! do
   set user: 'admin'
@@ -117,5 +118,3 @@ end
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
