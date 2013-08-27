@@ -1,4 +1,5 @@
 require "zbx/version"
+require 'zbx/util'
 require 'zbx/entity'
 require 'zbx/http_client'
 require 'zbx/api'
@@ -12,7 +13,7 @@ module ZBX
     # to initialize a zabbxi-api client.
     def client user=nil, password=nil, api_url=nil, &block
       @client ||= client! user, password, api_url
-      @client.instance_eval &block if block_given?
+      Util.call_block(&block, @client) if block_given?
       @client
     end
 

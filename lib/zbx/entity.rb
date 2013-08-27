@@ -16,7 +16,7 @@ module ZBX
     def initialize entity, parent, &b
       @entity = entity
       @parent = parent
-      instance_eval(&b) if block_given?
+      Util.call_block(&b, self) if block_given?
     end
 
     def method_missing m, arg={}
