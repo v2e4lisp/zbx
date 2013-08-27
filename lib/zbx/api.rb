@@ -16,7 +16,7 @@ module ZBX
       @auth = nil
       @user, @password, @http = user, password, HttpClient.new(api_url)
 
-      Util.call_block(&b, self) if block_given?
+      Util.call_block(self, &b) if block_given?
     end
 
     def set option={}

@@ -4,7 +4,7 @@ module ZBX
     # call a block
     # if block has one arg, yield the context
     # if no arg is passed to the block, eval block in context
-    def call_block(&block, context=nil)
+    def call_block(context, &block)
       if block.arity == 1
         yield context
       else

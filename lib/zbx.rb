@@ -13,7 +13,7 @@ module ZBX
     # to initialize a zabbxi-api client.
     def client user=nil, password=nil, api_url=nil, &block
       @client ||= client! user, password, api_url
-      Util.call_block(&block, @client) if block_given?
+      Util.call_block(@client, &block) if block_given?
       @client
     end
 
