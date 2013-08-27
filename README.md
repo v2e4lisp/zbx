@@ -21,7 +21,8 @@ Or install it yourself as:
 
 ### For rails users
 Configurateion. Yes, you can overwirte these by passing new value to ZBX.client.
-Puts the following lines into `./config/initializers/zbx.rb`
+
+Put the following lines into `./config/initializers/zbx.rb`
 ```ruby
 ZBX.config do |config|
   config.api_url = 'https://zabbix-api-url'
