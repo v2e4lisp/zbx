@@ -19,6 +19,16 @@ Or install it yourself as:
 
     $ gem install zbx
 
+### For rails users
+configurateion. Yes, you can overwirte these by passing new value to ZBX.client.
+```ruby
+ZBX.config do |config|
+  config.api_url = 'https://zabbix-api-url'
+  config.user =  'wenjun.yan'
+  config.password = 'yan.wenjun'
+end
+```
+
 ## Usage
 
 ```ruby
@@ -36,8 +46,6 @@ ZBX.client user, password, api_url do
   end
 end
 
-
-
 ZBX.client do
   set user: user, password: password
   set api_url: 'http://api_url'
@@ -49,6 +57,14 @@ client.host.get hostids: 10160
 
 host_api = client.host
 host_api.get hostids: 10160
+
+# When you want to create multiple user , use ZBX.client!.
+# Everytime you call it it will initialize a new zabbix-api client.
+me = ZBX.client! user: 'wenjun.yan', password: 'yanwenjun'
+admin = ZBX.client! do
+  set user: 'admin'
+  set passowrd: 'admin'
+end
 ```
 
 ```bash
