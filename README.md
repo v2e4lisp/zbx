@@ -19,7 +19,16 @@ Or install it yourself as:
 
     $ gem install zbx
 
-### For rails users
+### Command Line Config
+```yaml
+# ~/.zbxconfig is the config file. It will be parsed by yaml
+# so you write something like this
+user: wenjun.yan
+password: yanwenjun
+api_url: https://zabbix-api-url
+```
+
+### Rails Config
 Configurateion. Yes, you can overwirte these by passing new value to ZBX.client.
 
 Put the following lines into `./config/initializers/zbx.rb`
