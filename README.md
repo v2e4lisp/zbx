@@ -37,7 +37,7 @@ require 'zbx'
 
 # the following code are doing the same thing ,that is get a host whose id is 10160
 
-# You can parse an arg(`self`) to the block if you like.
+# You can pass an arg(`self`) to the block if you like.
 # If no arg is passed, the block will be eval in `self`
 
 ZBX.client user, password, api_url do
