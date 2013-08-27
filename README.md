@@ -20,7 +20,8 @@ Or install it yourself as:
     $ gem install zbx
 
 ### For rails users
-configurateion. Yes, you can overwirte these by passing new value to ZBX.client.
+Configurateion. Yes, you can overwirte these by passing new value to ZBX.client.
+Puts the following lines into `./config/initializers/zbx.rb`
 ```ruby
 ZBX.config do |config|
   config.api_url = 'https://zabbix-api-url'
@@ -36,6 +37,9 @@ require 'zbx'
 
 # the following code are doing the same thing ,that is get a host whose id is 10160
 
+# You can parse an arg(`self`) to the block if you like.
+# If no arg is passed, the block will be eval in `self`
+
 ZBX.client user, password, api_url do
   host.get hostids: 10160
 end
@@ -45,6 +49,15 @@ ZBX.client user, password, api_url do
     get hostids: 10160
   end
 end
+
+ZBX.client do |client|
+  client.hostgroup do |group|
+    p group.get(groupids: 10)
+  end
+end
+
+# Set `user`, `password`, `api_url`. if you don't set them or specified them when create.
+# The zabbix-client will use the default configuration stored in `ZBX.configuration`.
 
 ZBX.client do
   set user: user, password: password
