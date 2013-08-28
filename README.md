@@ -1,5 +1,4 @@
 # ZBX
-[![Build Status](https://travis-ci.org/v2e4lisp/zbx.png)](https://travis-ci.org/v2e4lisp/zbx.png)
 
 A zabbix API wrapper, a dsl and command line tool.
 
