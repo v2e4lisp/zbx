@@ -1,5 +1,5 @@
 # ZBX
-
+A zabbix API wrapper, a dsl and command line tool.
 This project is inspired by the following repos:
 
 - [zabbixapi](https://github.com/vadv/zabbixapi)
@@ -82,7 +82,7 @@ host_api = client.host
 host_api.get hostids: 10160
 
 # When you want to create multiple user , use `ZBX.client!`,
-# since `ZBX.client` will always try to return the existed zabbix-client created by itself.
+# since `ZBX.client` will always try to return the existing zabbix-client created by itself.
 # Instead `ZBX.client!` will always create a new instance everytime you call it.
 me = ZBX.client! user: 'wenjun.yan', password: 'yanwenjun'
 admin = ZBX.client! do
@@ -97,7 +97,7 @@ end
 # get the name of a host whose id is 10160
 > $ zbx send host.get '{"hostids": 10160, "output": ["name"]}'
 # output:
-# [{"hostid"=>"10160", "name"=>"store03.pf"}]
+# [{"hostid"=>"10160", "name"=>"fnft12.rf"}]
 
 # open api doc in browser
 > $ zbx doc host.get -v 2.0
@@ -118,3 +118,6 @@ end
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Thanks
+- thanks *Alain Ganuchaud*<alain@coreit.fr> for offering me a zabbix database erd.
