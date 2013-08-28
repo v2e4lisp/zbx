@@ -120,4 +120,4 @@ end
 5. Create new Pull Request
 
 ## Thanks
-- thanks *Alain Ganuchaud*<alain@coreit.fr> for offering me a zabbix database erd.
+- thanks *Alain Ganuchaud* <alain@coreit.fr> for offering me a zabbix database erd.
